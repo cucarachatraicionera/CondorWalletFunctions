@@ -18,7 +18,7 @@ const LAMPORTS_PER_SOL = solanaWeb3.LAMPORTS_PER_SOL
 
 //Funcion guardar llave
 async function saveKey(data){
-  try {    
+  try {     
     console.log("KEY:");
     console.log(await AsyncStorage.setItem('@storage_Key', data))  
   } catch (e) { 
@@ -149,7 +149,26 @@ async function sendTokenTransaction(wallet: solanaWeb3.Account, toPublic: string
   );
   console.log("SIGNATURE", signature);
   console.log("SUCCESS");
+
+
   
 }
 
-export { generateMnemonic, mnemonicToSeed, createAccount, getBalance, getToken,sendTokenTransaction,saveKey, readKey }
+
+
+async function getHistory(pubKey:string,options = { limit: 20 }){
+
+  const connection = createConnection("devnet");
+  const history = await connection.getConfirmedSignaturesForAddress2(
+  new PublicKey(pubKey),
+  options
+  );
+
+  console.log(history);
+  
+return history;
+
+}
+
+
+export { generateMnemonic, mnemonicToSeed, createAccount, getBalance, getToken,sendTokenTransaction,saveKey, readKey, getHistory}

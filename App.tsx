@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import "react-native-url-polyfill/auto";
 
 
-import { generateMnemonic, mnemonicToSeed, createAccount, getBalance, getToken,sendTokenTransaction,saveKey, readKey } from './api';
+import { generateMnemonic, mnemonicToSeed, createAccount, getBalance, getToken,sendTokenTransaction,saveKey, readKey,getHistory } from './api';
 
 //screens
 import Crearcuenta from './src/screens/Crearcuenta';
@@ -80,6 +80,15 @@ export default function App() {
     })
   } 
 
+
+
+  //Funcion enviar token
+  async function historial(pubKey:string){
+    const send = getHistory(pubKey)
+    send.then((value) => {
+      console.log(value);
+    })
+  } 
   return (
     
     //<Crearcuenta/>
@@ -121,7 +130,7 @@ export default function App() {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.boton}
-        onPress={() => sendToken()}
+        onPress={() => historial("uja3w9XG1g6DQSVT6YASK99FVmdVwXoHVoQEgtEJdLv")}
       >
         <Text>Enviar</Text>
       </TouchableOpacity>
